@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSpecialFolder.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OpenSpecialFolder.UI
+namespace OpenSpecialFolder.Views
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public MainViewModel ViewModel => (MainViewModel)DataContext;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ListView.SelectedItem is FolderViewModel folder && ViewModel.Open.CanExecute(folder))
+                ViewModel.Open.Execute(folder);
         }
     }
 }

@@ -1,0 +1,49 @@
+﻿<Window x:Class="OpenSpecialFolder.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dd="clr-namespace:OpenSpecialFolder.Views.DesignData"
+        mc:Ignorable="d" d:DataContext="{x:Static dd:ViewModelLocator.MainViewModel}"
+        Title="Open special folder" Height="500" Width="600">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Margin" Value="4,0,0,0" />
+        </Style>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Open}" CommandParameter="{Binding SelectedItem, ElementName=ListView}" />
+        <KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Copy}" CommandParameter="{Binding SelectedItem.Path, ElementName=ListView}" />
+    </Window.InputBindings>
+    <Grid>
+        <ListView x:Name="ListView" ItemsSource="{Binding Folders}" MouseDoubleClick="ListView_MouseDoubleClick"
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="4">
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" />
+                                <TextBlock Text="{Binding Path}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Button Content="Open" ToolTip="Open folder in the File Explorer." IsTabStop="False"
+                                 Command="{Binding DataContext.Open, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" />
+                                <Button Content="Copy" ToolTip="Copy folder path to the clipboard." IsTabStop="False"
+                                 Command="{Binding DataContext.Copy, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding Path}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
