@@ -23,6 +23,8 @@ namespace OpenSpecialFolder.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            Title += $" (v{VersionInfo.Version})";
         }
 
         protected override void OnSourceInitialized(EventArgs e)
