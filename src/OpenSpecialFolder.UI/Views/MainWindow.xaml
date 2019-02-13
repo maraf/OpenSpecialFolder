@@ -20,10 +20,6 @@
             <Setter Property="BorderThickness" Value="0" />
         </Style>
     </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Open}" CommandParameter="{Binding SelectedItem, ElementName=ListView}" />
-        <KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Copy}" CommandParameter="{Binding SelectedItem.Path, ElementName=ListView}" />
-    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -36,6 +32,10 @@
         
         <ListView x:Name="ListView" ItemsSource="{Binding Folders}" MouseDoubleClick="ListView_MouseDoubleClick" PreviewKeyDown="ListView_PreviewKeyDown"
          ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1">
+            <ListView.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding Open}" CommandParameter="{Binding SelectedItem, ElementName=ListView}" />
+                <KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Copy}" CommandParameter="{Binding SelectedItem.Path, ElementName=ListView}" />
+            </ListView.InputBindings>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -52,11 +52,11 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                <Button ToolTip="Open folder in the File Explorer." IsTabStop="False"
+                                <Button ToolTip="Open folder in the File Explorer (Enter)." IsTabStop="False"
                                  Command="{Binding DataContext.Open, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
                                     <TextBlock Style="{StaticResource FontIconStyle}" FontSize="16" Text="&#xE78B;" />
                                 </Button>
-                                <Button ToolTip="Copy folder path to the clipboard." IsTabStop="False"
+                                <Button ToolTip="Copy folder path to the clipboard (Ctrl+C)." IsTabStop="False"
                                  Command="{Binding DataContext.Copy, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding Path}">
                                     <TextBlock Style="{StaticResource FontIconStyle}" FontSize="16" Text="&#xE8C8;" />
                                 </Button>
