@@ -1,5 +1,7 @@
-﻿using Neptuo.Observables;
+﻿using Neptuo;
+using Neptuo.Observables;
 using Neptuo.Observables.Collections;
+using OpenSpecialFolder.Services;
 using OpenSpecialFolder.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ namespace OpenSpecialFolder.ViewModels
 {
     public class MainViewModel : ObservableModel
     {
-        public ObservableCollection<FolderViewModel> Folders { get; }
+        public ObservableCollection<Folder> Folders { get; }
         public OpenFolderCommand Open { get; }
         public CopyToClipBoardAsTextCommand Copy { get; }
 
@@ -36,18 +38,11 @@ namespace OpenSpecialFolder.ViewModels
             }
         }
 
-        public MainViewModel()
+        public MainViewModel(IFolderProvider folderProvider)
         {
-            Folders = new ObservableCollection<FolderViewModel>();
+            Ensure.NotNull(folderProvider, "folderProvider");
 
-            List<FolderViewModel> folders = new List<FolderViewModel>();
-            foreach (int folderValue in Enum.GetValues(typeof(Environment.SpecialFolder)))
-            {
-                Environment.SpecialFolder folder = (Environment.SpecialFolder)folderValue;
-                folders.Add(new FolderViewModel(folder, Environment.GetFolderPath(folder)));
-            }
-
-            Folders.AddRange(folders.OrderBy(f => f.Name.ToString()));
+            Folders = new ObservableCollection<Folder>(folderProvider.Get().OrderBy(f => f.Name.ToString()));
 
             Open = new OpenFolderCommand();
             Copy = new CopyToClipBoardAsTextCommand();
@@ -64,11 +59,11 @@ namespace OpenSpecialFolder.ViewModels
 
         private bool OnFilter(object item)
         {
-            FolderViewModel folder = (FolderViewModel)item;
+            Folder folder = (Folder)item;
             if (String.IsNullOrEmpty(normalizedSearchText))
                 return true;
 
-            if (folder.Name.ToString().ToLowerInvariant().Contains(normalizedSearchText))
+            if (folder.Name.ToLowerInvariant().Contains(normalizedSearchText))
                 return true;
 
             return false;

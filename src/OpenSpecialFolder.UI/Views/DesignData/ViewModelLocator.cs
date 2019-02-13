@@ -1,4 +1,5 @@
-﻿using OpenSpecialFolder.ViewModels;
+﻿using OpenSpecialFolder.Services;
+using OpenSpecialFolder.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace OpenSpecialFolder.Views.DesignData
             get
             {
                 if (mainViewModel == null)
-                    mainViewModel = new MainViewModel();
+                    mainViewModel = new MainViewModel(new SpecialFolderProvider());
 
                 return mainViewModel;
             }

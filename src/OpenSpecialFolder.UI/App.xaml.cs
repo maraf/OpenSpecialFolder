@@ -1,4 +1,5 @@
-﻿using OpenSpecialFolder.ViewModels;
+﻿using OpenSpecialFolder.Services;
+using OpenSpecialFolder.ViewModels;
 using OpenSpecialFolder.Views;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ namespace OpenSpecialFolder
         {
             base.OnStartup(e);
 
-            MainViewModel viewModel = new MainViewModel();
+            IFolderProvider folderProvider = new SpecialFolderProvider();
+            MainViewModel viewModel = new MainViewModel(folderProvider);
 
             MainWindow view = new MainWindow();
             view.DataContext = viewModel;
-
             view.Show();
         }
     }

@@ -58,9 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\IFolderProvider.cs" />
     <Compile Include="ViewModels\Commands\CopyToClipBoardAsTextCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenFolderCommand.cs" />
-    <Compile Include="ViewModels\FolderViewModel.cs" />
+    <Compile Include="Services\Folder.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,6 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\SpecialFolderProvider.cs" />
     <Compile Include="Views\DesignData\ViewModelLocator.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

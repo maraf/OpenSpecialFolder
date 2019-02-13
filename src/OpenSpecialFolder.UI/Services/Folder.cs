@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenSpecialFolder.ViewModels
+namespace OpenSpecialFolder.Services
 {
-    public class FolderViewModel
+    public class Folder
     {
-        public Environment.SpecialFolder Name { get; }
+        public string Name { get; }
         public string Path { get; }
 
-        public FolderViewModel(Environment.SpecialFolder name, string path)
+        public Folder(string name, string path)
         {
             Ensure.NotNull(name, "name");
             Ensure.NotNull(path, "path");

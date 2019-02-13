@@ -1,4 +1,5 @@
-﻿using OpenSpecialFolder.ViewModels;
+﻿using OpenSpecialFolder.Services;
+using OpenSpecialFolder.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace OpenSpecialFolder.Views
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ListView.SelectedItem is FolderViewModel folder && ViewModel.Open.CanExecute(folder))
+            if (ListView.SelectedItem is Folder folder && ViewModel.Open.CanExecute(folder))
                 ViewModel.Open.Execute(folder);
         }
 
