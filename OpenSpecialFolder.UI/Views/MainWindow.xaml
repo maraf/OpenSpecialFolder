@@ -11,14 +11,27 @@
             <Setter Property="Padding" Value="4" />
             <Setter Property="Margin" Value="4,0,0,0" />
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding Open}" CommandParameter="{Binding SelectedItem, ElementName=ListView}" />
         <KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding Copy}" CommandParameter="{Binding SelectedItem.Path, ElementName=ListView}" />
     </Window.InputBindings>
     <Grid>
-        <ListView x:Name="ListView" ItemsSource="{Binding Folders}" MouseDoubleClick="ListView_MouseDoubleClick"
-         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBox x:Name="SearchText" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="SearchText_PreviewKeyDown" />
+        </StackPanel>
+        
+        <ListView x:Name="ListView" ItemsSource="{Binding Folders}" MouseDoubleClick="ListView_MouseDoubleClick" PreviewKeyDown="ListView_PreviewKeyDown"
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
