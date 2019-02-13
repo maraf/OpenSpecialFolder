@@ -7,6 +7,10 @@
         mc:Ignorable="d" d:DataContext="{x:Static dd:ViewModelLocator.MainViewModel}"
         Title="Open special folder" Height="500" Width="600">
     <Window.Resources>
+        <Style x:Key="FontIconStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="pack://application:,,,/Views/Resources/#Segoe MDL2 Assets" />
+            <Setter Property="SnapsToDevicePixels" Value="False" />
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Padding" Value="4" />
             <Setter Property="Margin" Value="4,0,0,0" />
@@ -48,10 +52,14 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                <Button Content="Open" ToolTip="Open folder in the File Explorer." IsTabStop="False"
-                                 Command="{Binding DataContext.Open, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" />
-                                <Button Content="Copy" ToolTip="Copy folder path to the clipboard." IsTabStop="False"
-                                 Command="{Binding DataContext.Copy, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding Path}" />
+                                <Button ToolTip="Open folder in the File Explorer." IsTabStop="False"
+                                 Command="{Binding DataContext.Open, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                                    <TextBlock Style="{StaticResource FontIconStyle}" FontSize="16" Text="&#xE78B;" />
+                                </Button>
+                                <Button ToolTip="Copy folder path to the clipboard." IsTabStop="False"
+                                 Command="{Binding DataContext.Copy, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding Path}">
+                                    <TextBlock Style="{StaticResource FontIconStyle}" FontSize="16" Text="&#xE8C8;" />
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </Border>

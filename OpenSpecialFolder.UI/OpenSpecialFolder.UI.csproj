@@ -95,6 +95,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Views\Resources\segmdl2.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
